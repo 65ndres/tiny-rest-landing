@@ -1293,11 +1293,16 @@ input, select, textarea {
 		white-space: nowrap;
 	}
 
-	/* Background overlay tweak for better readability on photos */
+	/* Background overlay — purple night sky to match the app */
 	#bg:before {
 		background-image:
-			linear-gradient(to bottom, rgba(12, 14, 18, 0.55), rgba(12, 14, 18, 0.65)),
+			linear-gradient(to bottom, rgba(26, 26, 64, 0.72), rgba(106, 13, 173, 0.55)),
 			url("../../images/overlay.png");
+	}
+
+	#bg:after {
+		background-image: linear-gradient(180deg, #1a1a40 0%, #4a1575 45%, #6a0dad 100%);
+		background-size: cover;
 	}
 
 	@media screen and (max-width: 980px) {
@@ -1842,3 +1847,195 @@ input, select, textarea {
 		body.is-preload #footer {
 			opacity: 0;
 		}
+
+/* Tiny Rest content sections */
+
+	.app-logo {
+		width: 3rem;
+		height: 3rem;
+		border-radius: 0.75rem;
+	}
+
+	.app-hero-eyebrow {
+		text-transform: uppercase;
+		letter-spacing: 0.18rem;
+		font-size: 0.75rem;
+		opacity: 0.85;
+		margin-bottom: 0.75rem;
+	}
+
+	.app-hero-copy {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.app-content {
+		width: 100%;
+		max-width: 1100px;
+		display: flex;
+		flex-direction: column;
+		gap: 1.75rem;
+		margin-top: 2rem;
+	}
+
+	.app-section {
+		width: 100%;
+	}
+
+	.app-card {
+		background: rgba(255, 255, 255, 0.08);
+		border: 1px solid rgba(255, 255, 255, 0.22);
+		border-radius: 1rem;
+		padding: 2.25rem 2.5rem;
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+	}
+
+	.app-card p {
+		opacity: 0.92;
+		margin-bottom: 1rem;
+	}
+
+	.app-card p:last-child {
+		margin-bottom: 0;
+	}
+
+	.app-section-title {
+		font-size: clamp(1.5rem, 2.2vw, 1.85rem);
+		font-weight: 600;
+		line-height: 1.25;
+		margin-bottom: 1.25rem;
+		text-transform: none;
+		letter-spacing: 0;
+	}
+
+	.app-subsection-title {
+		font-size: 1.05rem;
+		font-weight: 600;
+		margin: 1.75rem 0 1rem 0;
+		text-transform: none;
+		letter-spacing: 0;
+	}
+
+	.app-note {
+		font-size: 0.9rem;
+		opacity: 0.8 !important;
+		font-style: italic;
+		margin-top: 1rem !important;
+	}
+
+	.app-table-wrapper {
+		overflow-x: auto;
+		margin: 0.5rem 0 1rem 0;
+	}
+
+	.app-table {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 0.95rem;
+	}
+
+	.app-table th,
+	.app-table td {
+		padding: 0.65rem 1rem;
+		text-align: left;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+	}
+
+	.app-table th {
+		font-weight: 600;
+		opacity: 0.95;
+	}
+
+	.app-table tbody tr:last-child td {
+		border-bottom: 0;
+	}
+
+	.app-list {
+		list-style: none;
+		padding: 0;
+		margin: 1.25rem 0 0 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+	}
+
+	.app-list li {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.75rem;
+		opacity: 0.92;
+		line-height: 1.5;
+	}
+
+	.app-list-icon {
+		flex-shrink: 0;
+		width: 1.75rem;
+		height: 1.75rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(255, 255, 255, 0.1);
+		border-radius: 50%;
+		font-size: 0.9rem;
+	}
+
+	.app-features {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.5rem 2rem;
+		margin-top: 0.5rem;
+	}
+
+	.app-feature h3 {
+		font-size: 1rem;
+		font-weight: 600;
+		margin-bottom: 0.4rem;
+		text-transform: none;
+		letter-spacing: 0;
+	}
+
+	.app-feature p {
+		font-size: 0.95rem;
+		opacity: 0.85;
+		margin-bottom: 0;
+	}
+
+	.app-card-cta {
+		text-align: center;
+	}
+
+	.app-card-cta .app-section-title {
+		margin-bottom: 0.75rem;
+	}
+
+	.app-card-cta .actions {
+		justify-content: center;
+		margin-top: 1.5rem;
+	}
+
+	#wrapper {
+		justify-content: flex-start;
+	}
+
+	@media screen and (max-width: 980px) {
+		.app-features {
+			grid-template-columns: 1fr;
+		}
+
+		.app-card {
+			padding: 1.75rem 1.5rem;
+		}
+	}
+
+	@media screen and (max-width: 736px) {
+		.app-content {
+			gap: 1.25rem;
+			margin-top: 1.5rem;
+		}
+
+		.app-card {
+			padding: 1.5rem 1.25rem;
+		}
+	}
