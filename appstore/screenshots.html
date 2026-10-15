@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800;900&display=block" rel="stylesheet">
+<style>
+  /* Laid out on a 1290px-wide canvas, then scaled to the output size (?w=&h=, default 1206 x 2622 for 6.3") */
+  :root {
+    --night: #15103a;
+    --ink: #2a1a5e;
+    --lavender: #ece7fa;
+    --purple: #7b5cff;
+    --pink: #d59be6;
+    --yellow: #FFD500;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { overflow: hidden; }
+  body { font-family: "Nunito", -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .slide { position: relative; width: 1290px; height: 2796px; overflow: hidden; transform-origin: 0 0; background: var(--lavender); }
+  .slide.dark { background: linear-gradient(180deg, #1b1550 0%, var(--night) 55%, #2b1d63 100%); }
+
+  /* "Zzz" ribbon on the hero slide */
+  .zzz { position: absolute; top: 0; left: 0; width: 1290px; height: 2796px; overflow: visible; pointer-events: none; }
+
+  /* Hero */
+  .stars { position: absolute; inset: 0;
+    background-image:
+      radial-gradient(3px 3px at 120px 180px, rgba(255,255,255,.8), transparent),
+      radial-gradient(2px 2px at 410px 90px, rgba(255,255,255,.6), transparent),
+      radial-gradient(3px 3px at 980px 240px, rgba(255,255,255,.7), transparent),
+      radial-gradient(2px 2px at 1180px 520px, rgba(255,255,255,.5), transparent),
+      radial-gradient(3px 3px at 760px 1180px, rgba(255,255,255,.6), transparent),
+      radial-gradient(2px 2px at 220px 1420px, rgba(255,255,255,.5), transparent),
+      radial-gradient(3px 3px at 1100px 1500px, rgba(255,255,255,.6), transparent),
+      radial-gradient(2px 2px at 560px 760px, rgba(255,255,255,.4), transparent); }
+  .hero-glow { position: absolute; inset: 0;
+    background:
+      radial-gradient(900px 700px at 10% 10%, rgba(123,92,255,.35), transparent 70%),
+      radial-gradient(800px 600px at 95% 60%, rgba(213,155,230,.18), transparent 70%); }
+  .hero { position: absolute; left: 110px; right: 110px; top: 230px; color: #fff; }
+  .hero img { width: 560px; margin: 0 0 90px -20px; opacity: .95; }
+  .hero h1 { font-weight: 800; font-size: 170px; line-height: 1.02; letter-spacing: -3px; }
+  .hero h1 .big { display: block; font-size: 300px; font-weight: 900; line-height: .95; letter-spacing: -6px; color: var(--yellow); padding-top: 10px; }
+  .hero p { margin-top: 80px; font-size: 68px; line-height: 1.3; color: rgba(255,255,255,.75); font-weight: 400; max-width: 980px; }
+
+  /* Feature slides */
+  .caption { position: absolute; top: 190px; left: 80px; right: 80px; text-align: center; color: var(--ink); z-index: 2; }
+  .caption h2 { font-size: 104px; font-weight: 900; letter-spacing: -2px; line-height: 1.05; }
+  .caption p { margin-top: 26px; font-size: 64px; font-weight: 400; color: rgba(42,26,94,.7); letter-spacing: -.5px; line-height: 1.2; }
+  .phone { position: absolute; left: 50%; top: 620px; width: 1060px; transform: translateX(-50%); z-index: 1;
+    filter: drop-shadow(0 50px 70px rgba(42,26,94,.25)); }
+</style>
+</head>
+<body>
+<script>
+const params = new URLSearchParams(location.search);
+const n = Number(params.get('n') || 1);
+const outW = Number(params.get('w') || 1206), outH = Number(params.get('h') || 2622);
+const k = outW / 1290;
+// Three z's growing as they climb up and to the right, each [path, stroke width]
+const zs = [
+  ['M 130 2510 L 250 2510 L 130 2630 L 250 2630', 40],
+  ['M 310 2210 L 520 2210 L 310 2420 L 520 2420', 64],
+  ['M 670 1800 L 1170 1800 L 670 2300 L 1170 2300', 96],
+];
+const zzz = `
+<svg class="zzz" viewBox="0 0 1290 2796" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="rg" gradientUnits="userSpaceOnUse" x1="130" y1="2630" x2="1170" y2="1800">
+      <stop offset="0" stop-color="#7b5cff"/>
+      <stop offset=".55" stop-color="#d59be6"/>
+      <stop offset="1" stop-color="#FFD500"/>
+    </linearGradient>
+    <filter id="glow" filterUnits="userSpaceOnUse" x="0" y="0" width="1290" height="2796"><feGaussianBlur stdDeviation="40"/></filter>
+  </defs>
+  <g fill="none" stroke="url(#rg)" stroke-linecap="round" stroke-linejoin="round">
+    ${zs.map(([d, w]) => `<path d="${d}" stroke-width="${w * 1.55}" opacity=".5" filter="url(#glow)"/><path d="${d}" stroke-width="${w}"/>`).join('')}
+  </g>
+</svg>`;
+const shots = {
+  2: ['home-prediction.png', 'Know when the<br>next nap is coming', 'Predicted from<br>recent sleep'],
+  3: ['add-sleep.png', 'Log naps<br>in seconds', 'One tap to start<br>and stop the timer'],
+  4: ['add-feeding-nursing.png', 'Track every<br>feeding', 'Nursing and bottles,<br>right next to sleep'],
+  5: ['timeline.png', 'See the whole day<br>at a glance', 'Naps and feeds,<br>hour by hour'],
+  6: ['soothing_sounds.png', 'Soothing sounds<br>for bedtime', 'White noise, rain<br>and more built in'],
+  7: ['activity-live.png', 'Nap timer on your<br>Lock Screen', 'See how long they’ve<br>slept at a glance'],
+  8: ['widget.png', 'Always one<br>glance away', 'Keep the sleep timer<br>on your Home Screen'],
+};
+let html;
+if (n === 1) {
+  html = `<div class="slide dark s1">
+    <div class="stars"></div><div class="hero-glow"></div>${zzz}
+    <div class="hero">
+      <img src="../images/splash-icon.png" alt="">
+      <h1>Better naps,<span class="big">calmer days</span></h1>
+      <p>Track sleep and feeding, and know when your baby is ready to rest.</p>
+    </div>
+  </div>`;
+} else {
+  const [img, h, p] = shots[n];
+  html = `<div class="slide s${n}">
+    <div class="caption"><h2>${h}</h2><p>${p}</p></div>
+    <img class="phone" src="../images/${img}" alt="">
+  </div>`;
+}
+document.body.innerHTML = html;
+document.body.style.cssText = `width:${outW}px;height:${outH}px`;
+const slide = document.querySelector('.slide');
+slide.style.height = `${outH / k}px`;
+slide.style.transform = `scale(${k})`;
+</script>
+</body>
+</html>
